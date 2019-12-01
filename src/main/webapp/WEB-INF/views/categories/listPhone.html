@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>
+    <a href="/">Back to home page</a>
+</p>
+<p>
+    <a href="/category-list">Back to category list</a>
+</p>
+<p>
+    <a href="/phone-list">Back to phone list</a>
+</p>
+<h1>Phone list by category</h1>
+<div class="dropdown">
+    <button class="dropbtn">Category filter</button>
+    <div class="dropdown-content">
+        <th:block th:each="category : ${categories}">
+            <a th:href="@{/phone-by-category/__${category.id}__}"><div th:text="${category.name}"></div></a>
+        </th:block>
+    </div>
+</div>
+<br/>
+<br/>
+<table border="1" style="border-collapse: collapse">
+    <tr>
+        <th>Name</th>
+        <th>Date Of Purchase</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <th:block th:each="phone : ${phones}">
+        <tr>
+            <td th:text="${phone.name}"></td>
+            <td th:text="${phone.dateOfPurchase}"></td>
+            <td th:text="${phone.price}"></td>
+            <td th:text="${phone.description}"></td>
+            <td th:text="${phone.category.name}"></td>
+            <td><a th:href="@{/phone-edit/__${phone.id}__}">Edit</a></td>
+            <td><a th:href="@{/phone-delete/__${phone.id}__}">Delete</a></td>
+        </tr>
+    </th:block>
+</table>
+</body>
+</html>

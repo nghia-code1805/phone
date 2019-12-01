@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>
+    <a href="/">Back to home page</a>
+</p>
+<h1>Category list</h1>
+<p>
+    <a href="/category-create">Create new Category</a>
+</p>
+<table border="1" style="border-collapse: collapse">
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Phone list by category</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <th:block th:each="category : ${categories}">
+        <tr>
+            <td th:text="${category.name}"></td>
+            <td th:text="${category.description}"></td>
+            <td><a th:href="@{/phone-by-category/__${category.id}__}">Phone list</a></td>
+            <td><a th:href="@{/category-edit/__${category.id}__}">Edit</a></td>
+            <td><a th:href="@{/category-delete/__${category.id}__}">Delete</a></td>
+        </tr>
+    </th:block>
+</table>
+<div>
+    <a th:href="@{'/category-list'(page=${categories.number - 1})}" th:if="${categories.hasPrevious()}">Previous</a>
+    <span th:text="${categories.number + 1}"></span>/<span th:text="${categories.totalPages}"></span>
+    <a th:href="@{'/category-list'(page=${categories.number + 1})}" th:if="${categories.hasNext()}">Next</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>
+    <a href="/phone-list">Back to Phone list</a>
+</p>
+<h1>Edit phone</h1>
+<div class="dropdown">
+    <button class="dropbtn">Dropdown</button>
+    <div class="dropdown-content">
+        <th:block th:each="category : ${categories}">
+            <a th:href="@{/phone-by-category/__${category.id}__}"><div th:text="${category.name}"></div></a>
+        </th:block>
+    </div>
+</div>
+<form th:object="${phone}" method="post" action="/phone-edit">
+    <input th:type="hidden" name="id" th:field="*{id}">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" th:field="*{name}"></td>
+        </tr>
+        <tr>
+            <td>Date Of Purchase:</td>
+            <td><input type="text" th:field="*{dateOfPurchase}"></td>
+        </tr>
+        <tr>
+            <td>Price:</td>
+            <td><input type="text" th:field="*{price}"></td>
+        </tr>
+        <tr>
+            <td>Description:</td>
+            <td><input type="text" th:field="*{description}"></td>
+        </tr>
+        <tr>
+            <td>Category:</td>
+            <td>
+                <select th:field="*{category}">
+                    <option th:each="p : ${categories}" th:value="${p.id}" th:text="${p.name}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><a th:if="${message != null}" th:text="${message}"></a></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Edit"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
